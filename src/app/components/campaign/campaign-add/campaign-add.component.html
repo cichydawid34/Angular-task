@@ -1,0 +1,37 @@
+<form class="table">
+  <h2>Add Product Campaign</h2>
+  <mat-form-field>
+    <mat-label>Campaign Name</mat-label>
+    <input matInput />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Keywords</mat-label>
+    <input matInput />
+  </mat-form-field>
+  <mat-slide-toggle color="primary">Status</mat-slide-toggle>
+  <mat-form-field floatLabel="always">
+    <mat-label>Campaign Fund</mat-label>
+    <input matInput type="number" class="example-right-align" placeholder="0" />
+    <span matTextPrefix>$&nbsp;</span>
+    <span matTextSuffix>.00</span>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Town</mat-label>
+    <mat-select>
+      <mat-option value="Kraków">Kraków</mat-option>
+      <mat-option value="Tarnów">Tarnów</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field floatLabel="always">
+    <mat-label>Amount</mat-label>
+    <input matInput type="number" class="example-right-align" placeholder="0" />
+    <span matTextPrefix>$&nbsp;</span>
+    <span matTextSuffix>.00</span>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Radius</mat-label>
+    <input matInput type="number" class="example-right-align" placeholder="0" />
+    <span matTextPrefix>$&nbsp;</span>
+  </mat-form-field>
+  <button mat-button color="primary" type="submit">Submit</button>
+</form>
