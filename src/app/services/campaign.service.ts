@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import Campaign from '../models/campaign';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CampaignService {
   constructor(private http: HttpClient) {}
-  getCampaigns(): Observable<any> {
-    return this.http.get('http://localhost:5000/');
+  getCampaigns(): Observable<Campaign[]> {
+    return this.http.get<Campaign[]>('http://localhost:5000/');
   }
 }
