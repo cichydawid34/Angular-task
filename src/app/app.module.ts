@@ -21,9 +21,11 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { CampaignAddComponent } from './components/campaign/campaign-add/campaign-add.component';
+import { RegisterComponent } from './components/user/register/register.component';
+import { LoginComponent } from './components/user/login/login.component';
 
 @NgModule({
-  declarations: [AppComponent, CampaignListComponent, CampaignAddComponent],
+  declarations: [AppComponent, CampaignListComponent, CampaignAddComponent, RegisterComponent, LoginComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
