@@ -30,11 +30,7 @@ export class CampaignListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //Get Campaigns
-    this.campaignService.getCampaigns().subscribe((response: Campaign[]) => {
-      this.campaigns$ = response;
-      console.log(this.campaigns$);
-    });
+    this.getCampaigns();
   }
   //Open Add campaign dialog
   addCampaignDialog() {
@@ -42,5 +38,25 @@ export class CampaignListComponent implements OnInit {
       height: '400px',
       width: '600px',
     });
+  }
+
+  getCampaigns(): void {
+    this.campaignService.getCampaigns().subscribe((response: Campaign[]) => {
+      this.campaigns$ = response;
+      console.log(this.campaigns$);
+    });
+  }
+
+  deleteCampaign(campaignId: number): void {
+    this.campaignService.deleteCampaign(campaignId).subscribe(
+      () => {
+        console.log(`Campaign with ID ${campaignId} deleted successfully.`);
+        // After successful deletion, you may want to refresh the campaigns list.
+        this.getCampaigns();
+      },
+      (error) => {
+        console.error(`Error deleting campaign with ID ${campaignId}:`, error);
+      }
+    );
   }
 }
