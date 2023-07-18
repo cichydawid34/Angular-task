@@ -1,0 +1,36 @@
+form.table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  margin: auto;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+mat-slide-toggle {
+  margin-bottom: 15px;
+}
+
+mat-select {
+  width: 100%;
+}
+
+input.example-right-align {
+  text-align: right;
+}
+
+button[type="submit"] {
+  width: 100%;
+}

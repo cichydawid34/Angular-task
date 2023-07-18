@@ -3,35 +3,56 @@
   Add data
 </button>
 <div class="tab">
-  <table mat-table [dataSource]="campaigns$" class="mat-elevation-z8 tab">
-    <!-- Define the table columns -->
+  <table
+    mat-table
+    [dataSource]="campaigns$"
+    class="mat-elevation-z8 tab"
+    matSort
+  >
+    <!-- Name -->
     <ng-container matColumnDef="campaignName">
-      <th mat-header-cell *matHeaderCellDef>Campaign Name</th>
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        sortActionDescription="Sort by mame"
+      >
+        Campaign Name
+      </th>
       <td mat-cell *matCellDef="let campaign">{{ campaign.campaignName }}</td>
     </ng-container>
 
+    <!-- Keywords -->
     <ng-container matColumnDef="keywords">
-      <th mat-header-cell *matHeaderCellDef>Keywords</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Keywords</th>
       <td mat-cell *matCellDef="let campaign">{{ campaign.keywords }}</td>
     </ng-container>
+
+    <!-- Bid -->
     <ng-container matColumnDef="bidAmount">
-      <th mat-header-cell *matHeaderCellDef>Bid Amount</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Bid Amount</th>
       <td mat-cell *matCellDef="let campaign">{{ campaign.bidAmount }}</td>
     </ng-container>
+
+    <!-- Status -->
     <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
       <td mat-cell *matCellDef="let campaign">{{ campaign.status }}</td>
     </ng-container>
 
+    <!-- Town -->
     <ng-container matColumnDef="town">
-      <th mat-header-cell *matHeaderCellDef>Town</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Town</th>
       <td mat-cell *matCellDef="let campaign">{{ campaign.town }}</td>
     </ng-container>
 
+    <!-- Radius -->
     <ng-container matColumnDef="radius">
-      <th mat-header-cell *matHeaderCellDef>Radius</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Radius</th>
       <td mat-cell *matCellDef="let campaign">{{ campaign.radius }}</td>
     </ng-container>
+
+    <!-- Delete button -->
     <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let campaign">
@@ -44,6 +65,8 @@
         </button>
       </td>
     </ng-container>
+
+    <!-- Edit  button -->
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let campaign">
@@ -52,7 +75,15 @@
         </button>
       </td>
     </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+  <mat-paginator
+    [length]="100"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25]"
+    aria-label="Select page"
+  >
+  </mat-paginator>
 </div>

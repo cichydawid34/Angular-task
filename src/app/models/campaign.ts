@@ -9,11 +9,11 @@ enum Status {
 }
 
 export default interface Campaign {
-  campaignName: String;
-  keywords: String;
-  bidAmount: Number;
-  campaignFund: Number;
+  campaignName: string;
+  keywords: string;
+  bidAmount: number;
+  campaignFund: number;
   status: Status;
   town: Towns;
-  radius: Number;
+  radius: number;
 }
