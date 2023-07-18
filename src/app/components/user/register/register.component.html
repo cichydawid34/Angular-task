@@ -1,17 +1,21 @@
-<form class="table">
+<form
+  class="table"
+  [formGroup]="registerForm"
+  (ngSubmit)="submitRegisterForm()"
+>
   <h2>Register</h2>
   <mat-form-field>
     <mat-label>Company Name</mat-label>
-    <input matInput />
+    <input matInput formControlName="companyName" placeholder="Name" required />
   </mat-form-field>
 
   <mat-form-field floatLabel="always">
     <mat-label>Password</mat-label>
     <input
       matInput
+      formControlName="password"
       type="password"
       class="example-right-align"
-      matInput
       [type]="hide ? 'password' : 'text'"
     />
     <button
@@ -26,10 +30,17 @@
   </mat-form-field>
 
   <mat-form-field floatLabel="always">
-    <mat-label>Campaign Fund</mat-label>
-    <input matInput type="number" class="example-right-align" placeholder="0" />
+    <mat-label>Emarald Amount</mat-label>
+    <input
+      matInput
+      type="number"
+      class="example-right-align"
+      placeholder="0"
+      formControlName="emeraldAmount"
+    />
     <span matTextPrefix>$&nbsp;</span>
   </mat-form-field>
+  <p routerLink="/login">Already have an account?</p>
 
   <button mat-button color="primary" type="submit">Submit</button>
 </form>

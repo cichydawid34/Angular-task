@@ -1,17 +1,17 @@
-<form class="table">
+<form class="table" [formGroup]="loginForm" (ngSubmit)="submitLoginForm()">
   <h2>Login</h2>
   <mat-form-field>
     <mat-label>Company Name</mat-label>
-    <input matInput />
+    <input matInput formControlName="companyName" placeholder="Name" required />
   </mat-form-field>
 
   <mat-form-field floatLabel="always">
     <mat-label>Password</mat-label>
     <input
       matInput
+      formControlName="password"
       type="password"
       class="example-right-align"
-      matInput
       [type]="hide ? 'password' : 'text'"
     />
     <button
@@ -24,6 +24,8 @@
       <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
     </button>
   </mat-form-field>
+
+  <p routerLink="/register">Don't have an account?</p>
 
   <button mat-button color="primary" type="submit">Submit</button>
 </form>

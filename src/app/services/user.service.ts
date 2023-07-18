@@ -6,15 +6,30 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  private baseUrl = 'http://localhost:5000';
+  private baseUrl = 'http://localhost:5000/users';
 
   constructor(private http: HttpClient) {}
 
-  registerUser(name: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/register`, { name, password });
+  registerUser(
+    companyName: string,
+    password: string,
+    emeraldAmount: number
+  ): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/register`, {
+      companyName,
+      password,
+      emeraldAmount,
+    });
   }
 
-  loginUser(name: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/login`, { name, password });
+  loginUser(companyName: string, password: string): Observable<any> {
+    return this.http.post(
+      `${this.baseUrl}/login`,
+      {
+        companyName,
+        password,
+      },
+      { responseType: 'text' }
+    );
   }
 }

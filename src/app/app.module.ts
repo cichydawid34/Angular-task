@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CampaignListComponent } from './components/campaign/campaign-list/campaign-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 //Angular Material
 import { MatTableModule } from '@angular/material/table';
@@ -23,9 +24,16 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CampaignAddComponent } from './components/campaign/campaign-add/campaign-add.component';
 import { RegisterComponent } from './components/user/register/register.component';
 import { LoginComponent } from './components/user/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, CampaignListComponent, CampaignAddComponent, RegisterComponent, LoginComponent],
+  declarations: [
+    AppComponent,
+    CampaignListComponent,
+    CampaignAddComponent,
+    RegisterComponent,
+    LoginComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -41,6 +49,8 @@ import { LoginComponent } from './components/user/login/login.component';
     MatFormFieldModule,
     MatSlideToggleModule,
     MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
