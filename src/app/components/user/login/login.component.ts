@@ -24,8 +24,6 @@ export class LoginComponent {
     });
   }
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
     console.log(this.cookieService.get('jwtToken'));
   }
   submitLoginForm(): void {
@@ -36,6 +34,7 @@ export class LoginComponent {
       next: (response) => {
         console.log('User logged successfully:', response);
         this.cookieService.set('jwtToken', response);
+        location.reload();
       },
       error: (error) => {
         console.error('Error loggin user:', error);

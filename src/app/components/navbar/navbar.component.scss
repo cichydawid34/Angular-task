@@ -1,0 +1,33 @@
+.navbar {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  height: 70px;
+  width: 100%;
+  background-color: black;
+  color: white;
+
+  align-items: center;
+}
+h2 {
+  margin: 0;
+}
+.navbar--header {
+  font-size: 20px;
+  margin-left: 10px;
+}
+.buttonContainer {
+  display: flex;
+  justify-content: right;
+  margin-left: auto;
+  gap: 120px;
+  margin-right: 80px;
+}
+.button-logout {
+  margin-left: auto;
+  font-size: 20px;
+  color: white;
+}
+.button-logout:hover {
+  transform: scale(110%);
+}

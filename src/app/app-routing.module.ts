@@ -5,7 +5,6 @@ import { LoginComponent } from './components/user/login/login.component';
 import { CampaignListComponent } from './components/campaign/campaign-list/campaign-list.component';
 import { authGuard } from './guards/auth.guard';
 import { unauthGuard } from './guards/un-auth.guard';
-//import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {

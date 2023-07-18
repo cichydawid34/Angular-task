@@ -26,6 +26,7 @@ import { RegisterComponent } from './components/user/register/register.component
 import { LoginComponent } from './components/user/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { CookieService } from 'ngx-cookie-service';
     CampaignAddComponent,
     RegisterComponent,
     LoginComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
