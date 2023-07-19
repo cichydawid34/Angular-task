@@ -18,7 +18,7 @@ export class UserService {
     companyName: string,
     password: string,
     emeraldAmount: number
-  ): Observable<any> {
+  ): Observable<string> {
     return this.http.post<any>(`${this.baseUrl}/register`, {
       companyName,
       password,
@@ -26,7 +26,7 @@ export class UserService {
     });
   }
   //Login User
-  loginUser(companyName: string, password: string): Observable<any> {
+  loginUser(companyName: string, password: string): Observable<string> {
     return this.http.post(
       `${this.baseUrl}/login`,
       {

@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginComponent {
   hide = true;
   loginForm: FormGroup;
+  errorMessage = '';
 
   constructor(
     private userService: UserService,
@@ -20,7 +21,6 @@ export class LoginComponent {
     this.loginForm = this.formBuilder.group({
       companyName: ['', Validators.required],
       password: ['', Validators.required],
-      emeraldAmount: ['', Validators.required],
     });
   }
   ngOnInit(): void {
@@ -29,7 +29,9 @@ export class LoginComponent {
   submitLoginForm(): void {
     const companyName = this.loginForm.get('companyName')?.value;
     const password = this.loginForm.get('password')?.value;
-
+    if (this.loginForm.invalid) {
+      return;
+    }
     this.userService.loginUser(companyName, password).subscribe({
       next: (response) => {
         console.log('User logged successfully:', response);
@@ -38,6 +40,12 @@ export class LoginComponent {
       },
       error: (error) => {
         console.error('Error loggin user:', error);
+        for (const key in error.error.errors) {
+          if (error.error.errors.hasOwnProperty(key)) {
+            const errorMessage = error.error.errors[key].message;
+            this.errorMessage = errorMessage;
+          }
+        }
       },
     });
   }

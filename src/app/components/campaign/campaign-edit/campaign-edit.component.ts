@@ -26,6 +26,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./campaign-edit.component.scss'],
 })
 export class CampaignEditComponent {
+  errorMessage = '';
   campaignId: string = '';
   campaignForm: FormGroup;
   keywordsCtrl = new FormControl();
@@ -106,8 +107,14 @@ export class CampaignEditComponent {
             console.log('Campaign updated successfully:', response);
             this.dialogRef.close(true); // Close the dialog and pass true as a result
           },
-          (error: unknown) => {
+          (error: any) => {
             console.error('Error updating campaign:', error);
+            for (const key in error.error.errors) {
+              if (error.error.errors.hasOwnProperty(key)) {
+                const errorMessage = error.error.errors[key].message;
+                this.errorMessage = errorMessage;
+              }
+            }
           }
         );
     } else {
@@ -154,5 +161,8 @@ export class CampaignEditComponent {
     }
 
     return `${value}`;
+  }
+  onCancel(): void {
+    this.dialogRef.close();
   }
 }

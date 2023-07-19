@@ -1,46 +1,81 @@
-<form
-  class="table"
-  [formGroup]="registerForm"
-  (ngSubmit)="submitRegisterForm()"
->
-  <h2>Register</h2>
-  <mat-form-field>
-    <mat-label>Company Name</mat-label>
-    <input matInput formControlName="companyName" placeholder="Name" required />
-  </mat-form-field>
-
-  <mat-form-field floatLabel="always">
-    <mat-label>Password</mat-label>
-    <input
-      matInput
-      formControlName="password"
-      type="password"
-      class="example-right-align"
-      [type]="hide ? 'password' : 'text'"
-    />
-    <button
-      mat-icon-button
-      matSuffix
-      (click)="hide = !hide"
-      [attr.aria-label]="'Hide password'"
-      [attr.aria-pressed]="hide"
+<div class="container">
+  <div class="form-container">
+    <form
+      class="table"
+      [formGroup]="registerForm"
+      (ngSubmit)="submitRegisterForm()"
     >
-      <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-    </button>
-  </mat-form-field>
+      <h2>Register</h2>
+      <mat-form-field>
+        <mat-label>Company Name</mat-label>
+        <input
+          matInput
+          formControlName="companyName"
+          placeholder="Name"
+          required
+        />
+        <mat-error
+          *ngIf="registerForm.get('companyName')?.errors?.['required']"
+        >
+          Company Name is required.
+        </mat-error>
+        <mat-error
+          *ngIf="registerForm.get('companyName')?.errors?.['minlength']"
+        >
+          Company Name must be at least 3 characters long.
+        </mat-error>
+      </mat-form-field>
 
-  <mat-form-field floatLabel="always">
-    <mat-label>Emarald Amount</mat-label>
-    <input
-      matInput
-      type="number"
-      class="example-right-align"
-      placeholder="0"
-      formControlName="emeraldAmount"
-    />
-    <span matTextPrefix>$&nbsp;</span>
-  </mat-form-field>
-  <p routerLink="/login">Already have an account?</p>
+      <mat-form-field floatLabel="always">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          type="password"
+          class="example-right-align"
+          [type]="hide ? 'password' : 'text'"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+        <mat-error *ngIf="registerForm.get('password')?.errors?.['required']">
+          Password is required.
+        </mat-error>
+        <mat-error *ngIf="registerForm.get('password')?.errors?.['minlength']">
+          Password must be at least 3 characters long.
+        </mat-error>
+      </mat-form-field>
 
-  <button mat-button color="primary" type="submit">Submit</button>
-</form>
+      <mat-form-field floatLabel="always">
+        <mat-label>Emerald Amount</mat-label>
+        <input
+          matInput
+          type="number"
+          class="example-right-align"
+          placeholder="0"
+          formControlName="emeraldAmount"
+        />
+        <span matTextPrefix>$&nbsp;</span>
+        <mat-error
+          *ngIf="registerForm.get('emeraldAmount')?.errors?.['required']"
+        >
+          Emerald Amount is required.
+        </mat-error>
+        <mat-error *ngIf="registerForm.get('emeraldAmount')?.errors?.['min']">
+          Emerald Amount must be minimum 200.
+        </mat-error>
+      </mat-form-field>
+      <p class="link-login" routerLink="/login">Already have an account?</p>
+
+      <button mat-button color="primary" type="submit" class="submit-button">
+        Submit
+      </button>
+    </form>
+  </div>
+</div>

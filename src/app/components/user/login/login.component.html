@@ -1,31 +1,42 @@
-<form class="table" [formGroup]="loginForm" (ngSubmit)="submitLoginForm()">
-  <h2>Login</h2>
-  <mat-form-field>
-    <mat-label>Company Name</mat-label>
-    <input matInput formControlName="companyName" placeholder="Name" required />
-  </mat-form-field>
+<div class="container">
+  <div class="form-container">
+    <form class="table" [formGroup]="loginForm" (ngSubmit)="submitLoginForm()">
+      <h2>Login</h2>
+      <mat-form-field>
+        <mat-label>Company Name</mat-label>
+        <input
+          matInput
+          formControlName="companyName"
+          placeholder="Name"
+          required
+        />
+      </mat-form-field>
 
-  <mat-form-field floatLabel="always">
-    <mat-label>Password</mat-label>
-    <input
-      matInput
-      formControlName="password"
-      type="password"
-      class="example-right-align"
-      [type]="hide ? 'password' : 'text'"
-    />
-    <button
-      mat-icon-button
-      matSuffix
-      (click)="hide = !hide"
-      [attr.aria-label]="'Hide password'"
-      [attr.aria-pressed]="hide"
-    >
-      <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-    </button>
-  </mat-form-field>
+      <mat-form-field floatLabel="always">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          type="password"
+          class="example-right-align"
+          [type]="hide ? 'password' : 'text'"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+      </mat-form-field>
 
-  <p routerLink="/register">Don't have an account?</p>
+      <p class="link-register" routerLink="/register">Don't have an account?</p>
 
-  <button mat-button color="primary" type="submit">Submit</button>
-</form>
+      <button mat-button color="primary" type="submit" class="submit-button">
+        Submit
+      </button>
+    </form>
+  </div>
+</div>

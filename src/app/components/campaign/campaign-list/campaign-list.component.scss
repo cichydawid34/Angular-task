@@ -1,0 +1,43 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+
+  .balance {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .add-button {
+    margin-bottom: 20px;
+  }
+  .table-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  // Responsive table styles
+  @media (max-width: 768px) {
+    table {
+      width: 100%;
+    }
+    .table-wrapper {
+      margin-bottom: 20px;
+    }
+
+    th,
+    td {
+      white-space: nowrap;
+    }
+
+    .mat-column-bidAmount {
+      width: 100%;
+    }
+
+    .mat-cell {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+  }
+}

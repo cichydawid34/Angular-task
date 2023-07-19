@@ -1,94 +1,112 @@
 <app-navbar />
-<p>Your emerald account balance= {{ emeraldAccountBalance }}</p>
-<button mat-raised-button class="demo-button" (click)="addCampaignDialog()">
-  Add data
-</button>
-<div class="tab">
-  <table
-    mat-table
-    [dataSource]="dataSource"
-    class="mat-elevation-z8 tab"
-    matSort
+<div class="container">
+  <p class="balance">
+    Your emerald account balance = {{ emeraldAccountBalance }}
+  </p>
+  <button
+    mat-raised-button
+    class="demo-button add-button"
+    (click)="addCampaignDialog()"
   >
-    <!-- Name -->
-    <ng-container matColumnDef="campaignName">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        mat-sort-header
-        sortActionDescription="Sort by name"
+    Add data
+  </button>
+  <div class="table-wrapper">
+    <div class="tab">
+      <div class="no-campaigns-message" *ngIf="dataSource.data.length === 0">
+        No campaigns found.
+      </div>
+
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="mat-elevation-z8 tab"
+        matSort
       >
-        Campaign Name
-      </th>
-      <td mat-cell *matCellDef="let campaign">{{ campaign.campaignName }}</td>
-    </ng-container>
+        <!-- Name -->
+        <ng-container matColumnDef="campaignName">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by name"
+          >
+            Campaign Name
+          </th>
+          <td mat-cell *matCellDef="let campaign">
+            {{ campaign.campaignName }}
+          </td>
+        </ng-container>
 
-    <!-- Keywords -->
-    <ng-container matColumnDef="keywords">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Keywords</th>
-      <td mat-cell *matCellDef="let campaign">{{ campaign.keywords }}</td>
-    </ng-container>
+        <!-- Keywords -->
+        <ng-container matColumnDef="keywords">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Keywords</th>
+          <td mat-cell *matCellDef="let campaign">
+            {{ campaign.keywords | slice : 0 : 20 }}
+          </td>
+        </ng-container>
 
-    <!-- Bid -->
-    <ng-container matColumnDef="bidAmount">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Bid Amount</th>
-      <td mat-cell *matCellDef="let campaign">{{ campaign.bidAmount }}</td>
-    </ng-container>
+        <!-- Bid -->
+        <ng-container matColumnDef="bidAmount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Bid Amount</th>
+          <td mat-cell *matCellDef="let campaign">{{ campaign.bidAmount }}</td>
+        </ng-container>
 
-    <!-- Status -->
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-      <td mat-cell *matCellDef="let campaign">{{ campaign.status }}</td>
-    </ng-container>
+        <!-- Status -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+          <td mat-cell *matCellDef="let campaign">{{ campaign.status }}</td>
+        </ng-container>
 
-    <!-- Town -->
-    <ng-container matColumnDef="town">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Town</th>
-      <td mat-cell *matCellDef="let campaign">{{ campaign.town }}</td>
-    </ng-container>
+        <!-- Town -->
+        <ng-container matColumnDef="town">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Town</th>
+          <td mat-cell *matCellDef="let campaign">{{ campaign.town }}</td>
+        </ng-container>
 
-    <!-- Radius -->
-    <ng-container matColumnDef="radius">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Radius</th>
-      <td mat-cell *matCellDef="let campaign">{{ campaign.radius }} km</td>
-    </ng-container>
+        <!-- Radius -->
+        <ng-container matColumnDef="radius">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Radius</th>
+          <td mat-cell *matCellDef="let campaign">{{ campaign.radius }} km</td>
+        </ng-container>
 
-    <!-- Delete button -->
-    <ng-container matColumnDef="delete">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let campaign">
-        <button
-          mat-icon-button
-          color="warn"
-          (click)="deleteCampaign(campaign._id)"
-        >
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
+        <!-- Delete button -->
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let campaign">
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="deleteCampaign(campaign._id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
 
-    <!-- Edit  button -->
-    <ng-container matColumnDef="edit">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let campaign">
-        <button
-          mat-icon-button
-          color="primary"
-          (click)="editCampaignDialog(campaign._id)"
-        >
-          <mat-icon>menu</mat-icon>
-        </button>
-      </td>
-    </ng-container>
+        <!-- Edit  button -->
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let campaign">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="editCampaignDialog(campaign._id)"
+            >
+              <mat-icon>menu</mat-icon>
+            </button>
+          </td>
+        </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-  <mat-paginator
-    [length]="100"
-    [pageSize]="10"
-    [pageSizeOptions]="[5, 10, 25]"
-    aria-label="Select page"
-  >
-  </mat-paginator>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <mat-paginator
+        [length]="100"
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25]"
+        aria-label="Select page"
+      >
+      </mat-paginator>
+    </div>
+  </div>
 </div>

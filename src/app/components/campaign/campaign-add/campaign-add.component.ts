@@ -12,12 +12,14 @@ import { Observable } from 'rxjs';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-campaign-add',
   templateUrl: './campaign-add.component.html',
   styleUrls: ['./campaign-add.component.scss'],
 })
 export class CampaignAddComponent {
+  errorMessage: string | null = null;
   addCampaignForm: FormGroup;
   keywordsCtrl = new FormControl();
   loggedInUser: any;
@@ -32,22 +34,31 @@ export class CampaignAddComponent {
     'Travel',
     'Travel',
   ];
+  townOptions: string[] = [
+    'Kraków',
+    'Tarnów',
+    'Warsaw',
+    'Gdańsk',
+    'Wrocław',
+    'Warszawa',
+  ];
 
   @ViewChild('keywordInput') keywordInput!: ElementRef<HTMLInputElement>;
 
   constructor(
     private CampaignService: CampaignService,
     private formBuilder: FormBuilder,
-    private authService: UserService
+    private authService: UserService,
+    private dialogRef: MatDialogRef<CampaignAddComponent>
   ) {
     this.addCampaignForm = this.formBuilder.group({
-      campaignName: ['', Validators.required],
+      campaignName: ['', [Validators.required, Validators.minLength(3)]],
       keywords: [''],
-      bidAmount: [0, Validators.required],
-      campaignFund: [0, Validators.required],
+      bidAmount: [0.1, [Validators.required, Validators.min(0.1)]],
+      campaignFund: [20, [Validators.required, Validators.min(20)]],
       status: ['false'],
       town: [''],
-      radius: [0, Validators.required],
+      radius: [1, [Validators.required, Validators.min(1)]],
     });
 
     this.filteredKeywords = this.keywordsCtrl.valueChanges.pipe(
@@ -64,16 +75,27 @@ export class CampaignAddComponent {
 
   //Submit Form
   submitAddCampaignForm(): void {
-    if (this.addCampaignForm.valid && this.loggedInUser) {
+    if (this.addCampaignForm.invalid) {
+      return;
+    }
+    if (this.loggedInUser) {
       const campaignData = this.addCampaignForm.value;
       campaignData.status = campaignData.status ? 'On' : 'Off';
       campaignData.keywords = this.selectedKeywords;
       this.CampaignService.addCampaign(campaignData).subscribe({
         next: (response: unknown) => {
           console.log('Campaign added successfully:', response);
+          this.dialogRef.close();
         },
-        error: (error: unknown) => {
-          console.error('Error adding campaign:', error);
+        error: (error: any) => {
+          console.error('Error adding campaign:', error.error.errors);
+
+          for (const key in error.error.errors) {
+            if (error.error.errors.hasOwnProperty(key)) {
+              const errorMessage = error.error.errors[key].message;
+              this.errorMessage = errorMessage;
+            }
+          }
         },
       });
     } else {
@@ -126,5 +148,8 @@ export class CampaignAddComponent {
     }
 
     return `${value}`;
+  }
+  onCancel(): void {
+    this.dialogRef.close();
   }
 }

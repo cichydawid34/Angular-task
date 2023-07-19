@@ -70,7 +70,11 @@ export class CampaignListComponent implements OnInit {
   addCampaignDialog() {
     let dialogRef = this.dialog.open(CampaignAddComponent, {
       height: '700px',
-      width: '500px',
+      width: '450px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getCampaigns();
+      this.fetchEmeraldAccountBalance();
     });
   }
 
@@ -78,8 +82,12 @@ export class CampaignListComponent implements OnInit {
   editCampaignDialog(campaignId: string) {
     let dialogRef = this.dialog.open(CampaignEditComponent, {
       height: '700px',
-      width: '500px',
+      width: '450px',
       data: { campaignId: campaignId },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getCampaigns();
+      this.fetchEmeraldAccountBalance();
     });
   }
 
@@ -108,11 +116,12 @@ export class CampaignListComponent implements OnInit {
   }
 
   //Delete Campaign
-  deleteCampaign(campaignId: number): void {
+  deleteCampaign(campaignId: string): void {
     this.campaignService.deleteCampaign(campaignId).subscribe({
       next: () => {
         console.log(`Campaign with ID ${campaignId} deleted successfully.`);
         this.getCampaigns();
+        this.fetchEmeraldAccountBalance();
       },
       error: (error) => {
         console.error(`Error deleting campaign with ID ${campaignId}:`, error);
@@ -123,7 +132,6 @@ export class CampaignListComponent implements OnInit {
   fetchEmeraldAccountBalance(): void {
     this.userService.getEmeraldAccount().subscribe(
       (response: any) => {
-        // Assuming the response contains the emerald account balance value
         this.emeraldAccountBalance = response;
       },
       (error: any) => {
