@@ -21,7 +21,7 @@ export class CampaignService {
   ): Observable<Campaign[]> {
     const token = this.cookieService.get('jwtToken');
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
+      Authorization: `${token}`,
     });
 
     let params = new HttpParams()
@@ -43,7 +43,7 @@ export class CampaignService {
   getCampaign(campaignId: string): Observable<Campaign> {
     const token = this.cookieService.get('jwtToken');
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
+      Authorization: `${token}`,
     });
     const url = `https://cichycampaign-api.onrender.com/Campaigns/${campaignId}`;
     return this.http.get<Campaign>(url, { headers });
@@ -53,7 +53,7 @@ export class CampaignService {
   addCampaign(campaignData: Campaign): Observable<any> {
     const token = this.cookieService.get('jwtToken');
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
+      Authorization: `${token}`,
     });
     return this.http.post<any>(
       'https://cichycampaign-api.onrender.com/Campaigns',
@@ -69,7 +69,7 @@ export class CampaignService {
     const url = `${this.baseUrl}/${campaignId}`;
     const token = this.cookieService.get('jwtToken');
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
+      Authorization: `${token}`,
     });
     console.log('Constructed URL:', url);
 

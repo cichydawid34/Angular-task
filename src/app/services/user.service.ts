@@ -55,7 +55,7 @@ export class UserService {
   getEmeraldAccount(): Observable<any> {
     const token = this.cookieService.get('jwtToken');
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
+      Authorization: `${token}`,
     });
     return this.http.post(`${this.baseUrl}/emerald-account`, {}, { headers });
   }
