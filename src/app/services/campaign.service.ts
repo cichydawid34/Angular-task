@@ -1,14 +1,16 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import Campaign from '../models/campaign';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CampaignService {
   baseUrl = `https://cichycampaign-api.onrender.com/Campaigns/`;
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   //Get campaigns
   getCampaigns(
@@ -17,6 +19,11 @@ export class CampaignService {
     sortActive: string,
     sortDirection: string
   ): Observable<Campaign[]> {
+    const token = this.cookieService.get('jwtToken');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
     let params = new HttpParams()
       .set('pageIndex', pageIndex.toString())
       .set('pageSize', pageSize.toString())
@@ -27,23 +34,31 @@ export class CampaignService {
       'https://cichycampaign-api.onrender.com/Campaigns',
       {
         params,
-        withCredentials: true,
+        headers,
       }
     );
   }
 
   //Get campaign
   getCampaign(campaignId: string): Observable<Campaign> {
+    const token = this.cookieService.get('jwtToken');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
     const url = `https://cichycampaign-api.onrender.com/Campaigns/${campaignId}`;
-    return this.http.get<Campaign>(url, { withCredentials: true });
+    return this.http.get<Campaign>(url, { headers });
   }
 
   //Post campaign
   addCampaign(campaignData: Campaign): Observable<any> {
+    const token = this.cookieService.get('jwtToken');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
     return this.http.post<any>(
       'https://cichycampaign-api.onrender.com/Campaigns',
       campaignData,
-      { withCredentials: true }
+      { headers }
     );
   }
   //Update campaign
@@ -52,14 +67,22 @@ export class CampaignService {
     updatedCampaign: Campaign
   ): Observable<any> {
     const url = `${this.baseUrl}/${campaignId}`;
+    const token = this.cookieService.get('jwtToken');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
     console.log('Constructed URL:', url);
 
-    return this.http.put<Campaign>(url, updatedCampaign);
+    return this.http.put<Campaign>(url, updatedCampaign, { headers });
   }
 
   //Delete campaign
   deleteCampaign(campaignId: string): Observable<void> {
+    const token = this.cookieService.get('jwtToken');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
     const url = `https://cichycampaign-api.onrender.com/Campaigns/${campaignId}`;
-    return this.http.delete<void>(url);
+    return this.http.delete<void>(url, { headers });
   }
 }

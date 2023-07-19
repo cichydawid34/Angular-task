@@ -32,8 +32,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CampaignEditComponent } from './components/campaign/campaign-edit/campaign-edit.component';
 
-import { JwtInterceptorService } from './services/jwt-interceptor.service';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,14 +64,7 @@ import { JwtInterceptorService } from './services/jwt-interceptor.service';
     MatChipsModule,
   ],
 
-  providers: [
-    CookieService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptorService,
-      multi: true,
-    },
-  ],
+  providers: [CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

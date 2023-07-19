@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
@@ -53,11 +53,11 @@ export class UserService {
   //Get emerald account
   //Login User
   getEmeraldAccount(): Observable<any> {
-    return this.http.post(
-      `${this.baseUrl}/emerald-account`,
-      {},
-      { withCredentials: true }
-    );
+    const token = this.cookieService.get('jwtToken');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.post(`${this.baseUrl}/emerald-account`, {}, { headers });
   }
   updateEmeraldAccountBalance(balance: number): void {
     this.emeraldAccountBalanceSubject.next(balance);
