@@ -23,6 +23,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { CampaignAddComponent } from './components/campaign/campaign-add/campaign-add.component';
 import { RegisterComponent } from './components/user/register/register.component';
@@ -62,6 +63,7 @@ import { CampaignEditComponent } from './components/campaign/campaign-edit/campa
     MatSliderModule,
     MatAutocompleteModule,
     MatChipsModule,
+    MatProgressSpinnerModule,
   ],
 
   providers: [CookieService],

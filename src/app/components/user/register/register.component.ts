@@ -11,6 +11,7 @@ export class RegisterComponent {
   hide = true;
   registerForm: FormGroup;
   errorMessage = '';
+  loading = false;
 
   constructor(
     private userService: UserService,
@@ -30,6 +31,7 @@ export class RegisterComponent {
     if (this.registerForm.invalid) {
       return;
     }
+    this.loading = true;
     this.userService
       .registerUser(companyName, password, emeraldAmount)
       .subscribe({
@@ -46,6 +48,9 @@ export class RegisterComponent {
               alert(errorMessage);
             }
           }
+        },
+        complete: () => {
+          this.loading = false;
         },
       });
   }
