@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CampaignListComponent } from './components/campaign/campaign-list/campaign-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
@@ -31,6 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CampaignEditComponent } from './components/campaign/campaign-edit/campaign-edit.component';
+
+import { JwtInterceptorService } from './services/jwt-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,14 @@ import { CampaignEditComponent } from './components/campaign/campaign-edit/campa
     MatChipsModule,
   ],
 
-  providers: [CookieService],
+  providers: [
+    CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
