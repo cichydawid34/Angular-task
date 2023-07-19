@@ -47,6 +47,7 @@ export class LoginComponent {
           if (error.error.errors.hasOwnProperty(key)) {
             const errorMessage = error.error.errors[key].message;
             this.errorMessage = errorMessage;
+            alert(errorMessage);
           }
         }
       },
