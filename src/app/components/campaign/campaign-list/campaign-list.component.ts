@@ -7,6 +7,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { CampaignEditComponent } from '../campaign-edit/campaign-edit.component';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-campaign-list',
@@ -19,6 +20,7 @@ export class CampaignListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   dataSource = new MatTableDataSource<Campaign>();
   sortedData: Campaign[] = [];
+  emeraldAccountBalance: number = 0;
 
   pageSizeOptions: number[] = [5, 10, 25, 50];
   pageIndex = 0;
@@ -37,13 +39,15 @@ export class CampaignListComponent implements OnInit {
   ];
   constructor(
     private campaignService: CampaignService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private userService: UserService
   ) {
     this.campaigns$ = [];
   }
 
   ngOnInit(): void {
     this.getCampaigns();
+    this.fetchEmeraldAccountBalance();
   }
 
   ngAfterViewInit(): void {
@@ -114,5 +118,17 @@ export class CampaignListComponent implements OnInit {
         console.error(`Error deleting campaign with ID ${campaignId}:`, error);
       },
     });
+  }
+  //Get emerald account
+  fetchEmeraldAccountBalance(): void {
+    this.userService.getEmeraldAccount().subscribe(
+      (response: any) => {
+        // Assuming the response contains the emerald account balance value
+        this.emeraldAccountBalance = response;
+      },
+      (error: any) => {
+        console.error('Error fetching emerald account balance:', error);
+      }
+    );
   }
 }

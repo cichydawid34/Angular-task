@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -9,6 +9,8 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class UserService {
   private baseUrl = 'http://localhost:5000/users';
+  private emeraldAccountBalanceSubject = new BehaviorSubject<number>(0);
+  emeraldAccountBalance$ = this.emeraldAccountBalanceSubject.asObservable();
 
   constructor(private http: HttpClient, private cookieService: CookieService) {}
   //Register User
@@ -34,12 +36,12 @@ export class UserService {
       { responseType: 'text' }
     );
   }
+  //Get User
   getLoggedInUser(): any {
     const token = this.cookieService.get('jwtToken');
     if (!token) {
       return null;
     }
-
     try {
       const decodedToken: any = jwt_decode(token);
       return decodedToken;
@@ -47,5 +49,17 @@ export class UserService {
       console.error('Error decoding JWT token:', error);
       return null;
     }
+  }
+  //Get emerald account
+  //Login User
+  getEmeraldAccount(): Observable<any> {
+    return this.http.post(
+      `${this.baseUrl}/emerald-account`,
+      {},
+      { withCredentials: true }
+    );
+  }
+  updateEmeraldAccountBalance(balance: number): void {
+    this.emeraldAccountBalanceSubject.next(balance);
   }
 }
