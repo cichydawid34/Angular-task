@@ -48,10 +48,10 @@ export class LoginComponent {
         this.errorMessage = error.error;
         for (const key in error.error.errors) {
           if (error.error.errors.hasOwnProperty(key)) {
-            const errorMessage = error.error.errors[key].message;
+            const errorMessage = error.error.errors[key].msg;
             this.errorMessage = errorMessage;
+            alert(errorMessage);
           }
-          alert(this.errorMessage);
         }
       },
       complete: () => {

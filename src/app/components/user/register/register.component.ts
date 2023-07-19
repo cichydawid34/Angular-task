@@ -43,7 +43,7 @@ export class RegisterComponent {
           console.error('Error registering user:', error);
           for (const key in error.error.errors) {
             if (error.error.errors.hasOwnProperty(key)) {
-              const errorMessage = error.error.errors[key].message;
+              const errorMessage = error.error.errors[key].msg;
               this.errorMessage = errorMessage;
               alert(errorMessage);
             }
