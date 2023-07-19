@@ -7,7 +7,9 @@ import Campaign from '../models/campaign';
   providedIn: 'root',
 })
 export class CampaignService {
+  baseUrl = `http://localhost:5000/Campaigns/`;
   constructor(private http: HttpClient) {}
+
   //Get campaigns
   getCampaigns(
     pageIndex: number,
@@ -26,12 +28,29 @@ export class CampaignService {
     });
   }
 
+  //Get campaign
+  getCampaign(campaignId: string): Observable<Campaign> {
+    const url = `http://localhost:5000/Campaigns/${campaignId}`;
+    return this.http.get<Campaign>(url);
+  }
+
+  //Post campaign
   addCampaign(campaignData: Campaign): Observable<any> {
     return this.http.post<any>(
       'http://localhost:5000/Campaigns',
       campaignData,
       { withCredentials: true }
     );
+  }
+  //Update campaign
+  updateCampaign(
+    campaignId: string,
+    updatedCampaign: Campaign
+  ): Observable<any> {
+    const url = `${this.baseUrl}/${campaignId}`; // Construct the URL properly
+    console.log('Constructed URL:', url); // Log the URL to inspect
+
+    return this.http.put<Campaign>(url, updatedCampaign);
   }
 
   //Delete campaign

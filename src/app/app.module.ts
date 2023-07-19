@@ -20,6 +20,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { CampaignAddComponent } from './components/campaign/campaign-add/campaign-add.component';
 import { RegisterComponent } from './components/user/register/register.component';
@@ -27,6 +30,7 @@ import { LoginComponent } from './components/user/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { CampaignEditComponent } from './components/campaign/campaign-edit/campaign-edit.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +40,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     RegisterComponent,
     LoginComponent,
     NavbarComponent,
+    CampaignEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +59,11 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSliderModule,
+    MatAutocompleteModule,
+    MatChipsModule,
   ],
+
   providers: [CookieService],
   bootstrap: [AppComponent],
 })

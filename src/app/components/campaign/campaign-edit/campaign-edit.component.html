@@ -1,9 +1,9 @@
 <form
   class="table"
-  [formGroup]="addCampaignForm"
-  (ngSubmit)="submitAddCampaignForm()"
+  [formGroup]="campaignForm"
+  (ngSubmit)="submitEditCampaignForm()"
 >
-  <h2>Add Product Campaign</h2>
+  <h2>Edit Campaign</h2>
   <!-- Name -->
   <mat-form-field>
     <mat-label>Campaign Name</mat-label>
@@ -45,6 +45,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
+
   <!-- Town -->
   <mat-form-field>
     <mat-label>Town</mat-label>
@@ -95,8 +96,9 @@
 
   <!-- Status -->
   <mat-slide-toggle color="primary" formControlName="status"
-    >Status
-  </mat-slide-toggle>
+    >Status</mat-slide-toggle
+  >
 
-  <button mat-button color="primary" type="submit">Submit</button>
+  <button mat-button color="primary" type="submit">Save Changes</button>
+  <button mat-button color="warn">Cancel</button>
 </form>

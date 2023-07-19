@@ -6,6 +6,7 @@ import { CampaignAddComponent } from '../campaign-add/campaign-add.component';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { CampaignEditComponent } from '../campaign-edit/campaign-edit.component';
 
 @Component({
   selector: 'app-campaign-list',
@@ -47,10 +48,13 @@ export class CampaignListComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
-    this.sort.sortChange.subscribe((sort: Sort) => {
+    this.dataSource.paginator = this.paginator;
+
+    this.sort.sortChange.subscribe(() => {
       this.paginator.pageIndex = 0;
       this.getCampaigns();
     });
+
     this.paginator.page.subscribe((pageEvent: PageEvent) => {
       this.pageIndex = pageEvent.pageIndex;
       this.pageSize = pageEvent.pageSize;
@@ -61,8 +65,17 @@ export class CampaignListComponent implements OnInit {
   //Open AddCampaign dialog
   addCampaignDialog() {
     let dialogRef = this.dialog.open(CampaignAddComponent, {
-      height: '1000px',
+      height: '700px',
       width: '500px',
+    });
+  }
+
+  //Open AddCampaign dialog
+  editCampaignDialog(campaignId: string) {
+    let dialogRef = this.dialog.open(CampaignEditComponent, {
+      height: '700px',
+      width: '500px',
+      data: { campaignId: campaignId },
     });
   }
 
@@ -81,8 +94,8 @@ export class CampaignListComponent implements OnInit {
       .subscribe(
         (response: Campaign[]) => {
           this.campaigns$ = response;
-          this.totalCampaigns = response.length; // Update the total campaigns count for pagination
-          this.dataSource.data = response; // Update the MatTableDataSource with the new data
+          this.totalCampaigns = response.length;
+          this.dataSource.data = response;
         },
         (error: any) => {
           console.error('Error getting campaigns:', error);
@@ -95,25 +108,11 @@ export class CampaignListComponent implements OnInit {
     this.campaignService.deleteCampaign(campaignId).subscribe({
       next: () => {
         console.log(`Campaign with ID ${campaignId} deleted successfully.`);
-        // After successful deletion, you may want to refresh the campaigns list.
         this.getCampaigns();
       },
       error: (error) => {
         console.error(`Error deleting campaign with ID ${campaignId}:`, error);
       },
     });
-  }
-
-  //Compare Logic
-  private compare(
-    a: number | string | boolean,
-    b: number | string | boolean,
-    isAsc: boolean
-  ): number {
-    if (typeof a === 'string' && typeof b === 'string') {
-      return (a as string).localeCompare(b as string) * (isAsc ? 1 : -1);
-    } else {
-      return ((a < b ? -1 : 1) * (isAsc ? 1 : -1)) as any;
-    }
   }
 }
