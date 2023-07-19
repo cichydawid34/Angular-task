@@ -27,6 +27,7 @@ const routes: Routes = [
     component: CampaignListComponent,
     canActivate: [authGuard],
   },
+  { path: '**', redirectTo: '/main' },
 ];
 
 @NgModule({
