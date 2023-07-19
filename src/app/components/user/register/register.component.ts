@@ -48,6 +48,7 @@ export class RegisterComponent {
               alert(errorMessage);
             }
           }
+          this.loading = false;
         },
         complete: () => {
           this.loading = false;

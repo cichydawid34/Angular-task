@@ -53,6 +53,7 @@ export class LoginComponent {
             alert(errorMessage);
           }
         }
+        this.loading = false;
       },
       complete: () => {
         this.loading = false;
