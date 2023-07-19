@@ -22,6 +22,7 @@ export class NavbarComponent {
   logOut(): void {
     this.cookieService.delete('jwtToken');
     this.userName = '';
+    this.router.navigate(['/login']);
     location.reload();
   }
 }

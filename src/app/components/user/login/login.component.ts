@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -16,7 +17,8 @@ export class LoginComponent {
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
       companyName: ['', Validators.required],
@@ -36,6 +38,7 @@ export class LoginComponent {
       next: (response) => {
         console.log('User logged successfully:', response);
         this.cookieService.set('jwtToken', response);
+        this.router.navigate(['/']);
         location.reload();
       },
       error: (error) => {
