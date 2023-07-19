@@ -8,7 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root',
 })
 export class UserService {
-  private baseUrl = 'http://localhost:5000/users';
+  private baseUrl = 'https://cichycampaign-api.onrender.com/users';
   private emeraldAccountBalanceSubject = new BehaviorSubject<number>(0);
   emeraldAccountBalance$ = this.emeraldAccountBalanceSubject.asObservable();
 

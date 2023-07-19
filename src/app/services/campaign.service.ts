@@ -7,7 +7,7 @@ import Campaign from '../models/campaign';
   providedIn: 'root',
 })
 export class CampaignService {
-  baseUrl = `http://localhost:5000/Campaigns/`;
+  baseUrl = `https://cichycampaign-api.onrender.com/Campaigns/`;
   constructor(private http: HttpClient) {}
 
   //Get campaigns
@@ -23,22 +23,25 @@ export class CampaignService {
       .set('sortActive', sortActive)
       .set('sortDirection', sortDirection);
 
-    return this.http.get<Campaign[]>('http://localhost:5000/Campaigns', {
-      params,
-      withCredentials: true,
-    });
+    return this.http.get<Campaign[]>(
+      'https://cichycampaign-api.onrender.com/Campaigns',
+      {
+        params,
+        withCredentials: true,
+      }
+    );
   }
 
   //Get campaign
   getCampaign(campaignId: string): Observable<Campaign> {
-    const url = `http://localhost:5000/Campaigns/${campaignId}`;
+    const url = `https://cichycampaign-api.onrender.com/Campaigns/${campaignId}`;
     return this.http.get<Campaign>(url, { withCredentials: true });
   }
 
   //Post campaign
   addCampaign(campaignData: Campaign): Observable<any> {
     return this.http.post<any>(
-      'http://localhost:5000/Campaigns',
+      'https://cichycampaign-api.onrender.com/Campaigns',
       campaignData,
       { withCredentials: true }
     );
@@ -56,7 +59,7 @@ export class CampaignService {
 
   //Delete campaign
   deleteCampaign(campaignId: string): Observable<void> {
-    const url = `http://localhost:5000/Campaigns/${campaignId}`;
+    const url = `https://cichycampaign-api.onrender.com/Campaigns/${campaignId}`;
     return this.http.delete<void>(url);
   }
 }
