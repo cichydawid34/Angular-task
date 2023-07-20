@@ -10,10 +10,11 @@ enum Status {
 
 export default interface Campaign {
   campaignName: string;
-  keywords: string;
+  keywords: string[];
   bidAmount: number;
   campaignFund: number;
-  status: Status;
-  town: Towns;
+  status: string;
+  town: string;
   radius: number;
+  userId: string;
 }

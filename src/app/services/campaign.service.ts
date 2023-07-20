@@ -48,18 +48,20 @@ export class CampaignService {
   }
 
   //Post campaign
-  addCampaign(campaignData: Campaign): Observable<any> {
+  addCampaign(campaignData: Campaign): Observable<Campaign> {
     const token = this.cookieService.get('jwtToken');
     const headers = new HttpHeaders({
       Authorization: `${token}`,
     });
-    return this.http.post<any>(`${this.baseUrl}`, campaignData, { headers });
+    return this.http.post<Campaign>(`${this.baseUrl}`, campaignData, {
+      headers,
+    });
   }
   //Update campaign
   updateCampaign(
     campaignId: string,
     updatedCampaign: Campaign
-  ): Observable<any> {
+  ): Observable<Campaign> {
     const url = `${this.baseUrl}/${campaignId}`;
     const token = this.cookieService.get('jwtToken');
     const headers = new HttpHeaders({

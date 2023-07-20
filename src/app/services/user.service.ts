@@ -9,7 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class UserService {
   private baseUrl = 'https://cichycampaign-api.onrender.com/users';
-  //private baseUrl = 'http://localhost:5000/users';
+  // private baseUrl = 'http://localhost:5000/users';
   private emeraldAccountBalanceSubject = new BehaviorSubject<number>(0);
   emeraldAccountBalance$ = this.emeraldAccountBalanceSubject.asObservable();
 
@@ -38,7 +38,7 @@ export class UserService {
     );
   }
   //Get User
-  getLoggedInUser(): any {
+  getLoggedInUser(): string | null {
     const token = this.cookieService.get('jwtToken');
     if (!token) {
       return null;
