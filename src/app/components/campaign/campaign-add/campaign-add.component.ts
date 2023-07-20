@@ -88,8 +88,8 @@ export class CampaignAddComponent {
           this.dialogRef.close();
         },
         error: (error: any) => {
-          console.error('Error adding campaign:', error.error.errors);
-
+          console.error('Error adding campaign:', error.error);
+          this.errorMessage = error.error;
           for (const key in error.error.errors) {
             if (error.error.errors.hasOwnProperty(key)) {
               const errorMessage = error.error.errors[key].message;

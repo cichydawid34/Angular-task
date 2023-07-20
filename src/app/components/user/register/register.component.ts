@@ -40,15 +40,15 @@ export class RegisterComponent {
           alert('Succesfully registered');
         },
         error: (error) => {
+          this.loading = false;
           console.error('Error registering user:', error);
+          this.errorMessage = error.error;
           for (const key in error.error.errors) {
             if (error.error.errors.hasOwnProperty(key)) {
-              const errorMessage = error.error.errors[key].msg;
-              this.errorMessage = errorMessage;
-              alert(errorMessage);
+              this.errorMessage = error.error.errors[key].msg;
             }
           }
-          this.loading = false;
+          alert(this.errorMessage);
         },
         complete: () => {
           this.loading = false;

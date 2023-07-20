@@ -80,6 +80,9 @@
         class="submit-button"
         [disabled]="loading"
       >
+        <mat-error *ngIf="errorMessage">
+          {{ errorMessage }}
+        </mat-error>
         <span *ngIf="!loading">Submit</span>
         <mat-spinner diameter="30" *ngIf="loading"></mat-spinner>
       </button>

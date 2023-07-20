@@ -9,6 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class UserService {
   private baseUrl = 'https://cichycampaign-api.onrender.com/users';
+  //private baseUrl = 'http://localhost:5000/users';
   private emeraldAccountBalanceSubject = new BehaviorSubject<number>(0);
   emeraldAccountBalance$ = this.emeraldAccountBalanceSubject.asObservable();
 
@@ -43,21 +44,25 @@ export class UserService {
       return null;
     }
     try {
-      const decodedToken: any = jwt_decode(token);
+      const decodedToken: string = jwt_decode(token);
       return decodedToken;
     } catch (error) {
       console.error('Error decoding JWT token:', error);
       return null;
     }
   }
+
   //Get emerald account
-  //Login User
-  getEmeraldAccount(): Observable<any> {
+  getEmeraldAccount(): Observable<number> {
     const token = this.cookieService.get('jwtToken');
     const headers = new HttpHeaders({
       Authorization: `${token}`,
     });
-    return this.http.post(`${this.baseUrl}/emerald-account`, {}, { headers });
+    return this.http.post<number>(
+      `${this.baseUrl}/emerald-account`,
+      {},
+      { headers }
+    );
   }
   updateEmeraldAccountBalance(balance: number): void {
     this.emeraldAccountBalanceSubject.next(balance);

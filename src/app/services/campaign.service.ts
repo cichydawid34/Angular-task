@@ -8,7 +8,8 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root',
 })
 export class CampaignService {
-  baseUrl = `https://cichycampaign-api.onrender.com/Campaigns/`;
+  private baseUrl = `https://cichycampaign-api.onrender.com/Campaigns/`;
+  //private baseUrl = 'http://localhost:5000/Campaigns';
 
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
@@ -30,13 +31,10 @@ export class CampaignService {
       .set('sortActive', sortActive)
       .set('sortDirection', sortDirection);
 
-    return this.http.get<Campaign[]>(
-      'https://cichycampaign-api.onrender.com/Campaigns',
-      {
-        params,
-        headers,
-      }
-    );
+    return this.http.get<Campaign[]>(`${this.baseUrl}`, {
+      params,
+      headers,
+    });
   }
 
   //Get campaign
@@ -45,7 +43,7 @@ export class CampaignService {
     const headers = new HttpHeaders({
       Authorization: `${token}`,
     });
-    const url = `https://cichycampaign-api.onrender.com/Campaigns/${campaignId}`;
+    const url = `${this.baseUrl}/${campaignId}`;
     return this.http.get<Campaign>(url, { headers });
   }
 
@@ -55,11 +53,7 @@ export class CampaignService {
     const headers = new HttpHeaders({
       Authorization: `${token}`,
     });
-    return this.http.post<any>(
-      'https://cichycampaign-api.onrender.com/Campaigns',
-      campaignData,
-      { headers }
-    );
+    return this.http.post<any>(`${this.baseUrl}`, campaignData, { headers });
   }
   //Update campaign
   updateCampaign(
@@ -82,7 +76,7 @@ export class CampaignService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-    const url = `https://cichycampaign-api.onrender.com/Campaigns/${campaignId}`;
+    const url = `${this.baseUrl}/${campaignId}`;
     return this.http.delete<void>(url, { headers });
   }
 }

@@ -33,7 +33,9 @@
       </mat-form-field>
 
       <p class="link-register" routerLink="/register">Don't have an account?</p>
-
+      <mat-error *ngIf="errorMessage">
+        {{ errorMessage }}
+      </mat-error>
       <button
         mat-button
         color="primary"

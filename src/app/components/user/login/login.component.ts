@@ -44,16 +44,15 @@ export class LoginComponent {
         location.reload();
       },
       error: (error) => {
+        this.loading = false;
         console.error('Error loggin user:', error);
         this.errorMessage = error.error;
         for (const key in error.error.errors) {
           if (error.error.errors.hasOwnProperty(key)) {
-            const errorMessage = error.error.errors[key].msg;
-            this.errorMessage = errorMessage;
-            alert(errorMessage);
+            this.errorMessage = error.error.errors[key].msg;
           }
         }
-        this.loading = false;
+        alert(this.errorMessage);
       },
       complete: () => {
         this.loading = false;
